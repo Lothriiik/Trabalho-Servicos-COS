@@ -59,4 +59,27 @@ class UsuarioDAO {
             throw new HttpException('Erro ao cadastrar usuário', 500, 'DB_ERROR');
         }
     }
+
+    public function usuariosPorUuids(array $uuids): array
+    {
+        try {
+            $placeholders = implode(',', array_fill(0, count($uuids), '?'));
+            $sql = "
+                SELECT
+                    usuario_uuid,
+                    usuario_nome,
+                    usuario_username
+                FROM usuario
+                WHERE usuario_uuid IN ($placeholders)
+            ";
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute($uuids);
+
+            $resultado = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+            return $resultado ?: [];
+        } catch (PDOException $e) {
+            throw new HttpException( 'Falha na consulta de usuários', 500, 'DB_ERROR');
+        }
+    }
+
 } 

@@ -1,0 +1,90 @@
+/usuarios:
+  post:
+    tags:
+      - Usuário
+    summary: Lista usuários existentes
+    description: Lista os usuários cujos UUIDs são informados no body da requisição.
+    security:
+      - BearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usuario_ids:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+                description: Lista de UUIDs de usuários a serem retornados
+            required:
+              - usuario_ids
+            example:
+              usuario_ids:
+                - "uuid-usuario-1"
+                - "uuid-usuario-2"
+    responses:
+      '200':
+        description: Lista de usuários retornada com sucesso
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  usuario_uuid:
+                    type: string
+                    format: uuid
+                  usuario_nome:
+                    type: string
+                  usuario_username:
+                    type: string
+            example:
+              - usuario_uuid: "uuid-usuario-1"
+                usuario_nome: "Maria de Souza"
+                usuario_username: "mariadesouza"
+              - usuario_uuid: "uuid-usuario-2"
+                usuario_nome: "João Silva"
+                usuario_username: "joaosilva"
+      '400':
+        description: Requisição inválida
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string
+      '401':
+        description: Token JWT inválido ou ausente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string
+      '500':
+        description: Erro interno do servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string

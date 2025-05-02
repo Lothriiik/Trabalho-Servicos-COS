@@ -6,6 +6,7 @@ namespace UsuarioAutenticacao\Services;
 use UsuarioAutenticacao\DTOs\CriarUsuarioDTO;
 use UsuarioAutenticacao\DTOs\LogarUsuarioDTO;
 use UsuarioAutenticacao\DTOs\ObterUsuarioDTO;
+use UsuarioAutenticacao\DTOs\ObterUsuariosDTO;
 use UsuarioAutenticacao\Core\HttpException;
 use UsuarioAutenticacao\Core\JWT;
 use UsuarioAutenticacao\DAOs\UsuarioDAO;
@@ -97,5 +98,23 @@ class UsuarioService
             }
         }
     }
+
+     public function listar(array $usuarioIds): array
+        {
+            try {
+                return $this->usuarioDAO->usuariosPorUuids($usuarioIds);
+            } catch (HttpException $e) {
+                // propaga nossa própria HttpException
+                throw $e;
+            } catch (\Exception $e) {
+                throw new HttpException(
+                    'Erro interno ao listar usuários',
+                    500,
+                    'SERVER_ERROR',
+                    '00'
+                );
+            }
+        }
+
 
 }

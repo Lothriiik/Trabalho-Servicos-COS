@@ -7,6 +7,7 @@ use UsuarioAutenticacao\Services\UsuarioService;
 use UsuarioAutenticacao\Core\HttpException;
 use UsuarioAutenticacao\DTOS\CriarUsuarioDTO; 
 use UsuarioAutenticacao\DTOS\LogarUsuarioDTO; 
+use UsuarioAutenticacao\DTOs\ObterUsuariosDTO;
 
 class UsuarioController
 {
@@ -91,6 +92,35 @@ class UsuarioController
                 $usuario_uuid = $dados['usuario_uuid'];
                 $resultado = $this->service->obter($usuario_uuid);
         
+                return [
+                    'status' => 200,
+                    'data'   => $resultado,
+                ];
+            } catch (HttpException $e) {
+                return [
+                    'status' => $e->getStatusCode(),
+                    'error'  => $e->toArray(),
+                ];
+            } catch (\Exception $e) {
+                return [
+                    'status' => 500,
+                    'error'  => [
+                        'statusCode' => 500,
+                        'error'      => 'Erro interno do servidor',
+                        'ErrorCode'  => '00',
+                    ],
+                ];
+            }
+        }
+
+        public function listar(array $dados): array
+        {
+            try {
+                $dto = new ObterUsuariosDTO($dados);
+                $usuarioIds = $dto->getUsuarioIds();
+
+                $resultado = $this->service->listar($usuarioIds);
+
                 return [
                     'status' => 200,
                     'data'   => $resultado,
