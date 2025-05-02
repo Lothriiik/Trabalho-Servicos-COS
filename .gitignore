@@ -3,7 +3,6 @@
 
 # Ignorar credenciais e variáveis de ambiente
 .env
-.env.*
 
 # Ignorar dependências (caso use composer)
 vendor/
