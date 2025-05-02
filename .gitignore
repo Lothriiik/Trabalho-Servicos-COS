@@ -1,0 +1,27 @@
+# Ignorar arquivos de log
+*.log
+
+# Ignorar credenciais e variáveis de ambiente
+.env
+.env.*
+
+# Ignorar dependências (caso use composer)
+vendor/
+
+# Ignorar cache ou arquivos temporários
+cache/
+tmp/
+*.tmp
+
+# Ignorar banco de dados local
+*.sqlite
+*.sqlite3
+*.db
+
+# Ignorar pasta de dados
+data/
+
+
+# Ignorar IDEs e editores
+.vscode/
+.idea/

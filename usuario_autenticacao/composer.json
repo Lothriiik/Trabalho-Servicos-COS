@@ -1,0 +1,17 @@
+{
+    "name": "cosrs/autenticacao-usuarios",
+    "autoload": {
+        "psr-4": {
+            "UsuarioAutenticacao\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "RobertoGram",
+            "email": "jrobertogram@gmail.com"
+        }
+    ],
+    "require": {
+        "vlucas/phpdotenv": "^5.6"
+    }
+}
