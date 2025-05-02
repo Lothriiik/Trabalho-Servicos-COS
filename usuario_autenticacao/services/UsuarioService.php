@@ -5,6 +5,7 @@ namespace UsuarioAutenticacao\Services;
 
 use UsuarioAutenticacao\DTOs\CriarUsuarioDTO;
 use UsuarioAutenticacao\DTOs\LogarUsuarioDTO;
+use UsuarioAutenticacao\DTOs\ObterUsuarioDTO;
 use UsuarioAutenticacao\Core\HttpException;
 use UsuarioAutenticacao\Core\JWT;
 use UsuarioAutenticacao\DAOs\UsuarioDAO;
@@ -67,6 +68,34 @@ class UsuarioService
 
         return $dto->toArrayResponse();
         
+    }
+
+    public function obter($usuario_uuid): array
+    {
+        try {
+     
+            $usuario = $this->usuarioDAO->usuarioPorUuid($usuario_uuid);
+
+            if (!$usuario) {
+                throw new HttpException(
+                    'Usuário não encontrado',
+                    404,
+                    'NOT_FOUND'
+                );
+            }
+
+            $dto = new ObterUsuarioDTO([
+                'usuario_uuid' => $usuario['usuario_uuid'],
+                'usuario_nome' => $usuario['usuario_nome'],
+                'usuario_username' => $usuario['usuario_username'],
+            ]);
+
+            return $dto->toArrayResponse();
+        } catch (\Exception $e) {
+            if ($e instanceof HttpException) {
+                throw $e;
+            }
+        }
     }
 
 }
