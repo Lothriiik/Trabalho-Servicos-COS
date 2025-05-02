@@ -82,4 +82,10 @@ class UsuarioDAO {
         }
     }
 
+    public function apagarPorUuid(string $uuid): void
+    {
+        $stmt = $this->db->getConnection()->prepare('DELETE FROM usuario WHERE usuario_uuid = ?');
+        $stmt->execute([$uuid]);
+    }
+
 } 

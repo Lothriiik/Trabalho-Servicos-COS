@@ -134,21 +134,24 @@ class Router {
         $this->registerSwaggerFile($swaggerFile);
     }
 
-    public function put($path, $controller, $action, $swaggerFile = null) {
+    public function put($path, $controller, $action, $swaggerFile = null, $middlewares = []) {
         $this->routes['PUT'][$path] = [
             'controller' => $controller,
-            'action'     => $action
+            'action'     => $action,
+            'middlewares' => $middlewares
         ];
         $this->registerSwaggerFile($swaggerFile);
     }
 
-    public function delete($path, $controller, $action, $swaggerFile = null) {
+    public function delete($path, $controller, $action, $swaggerFile = null, $middlewares = []) {
         $this->routes['DELETE'][$path] = [
             'controller' => $controller,
-            'action'     => $action
+            'action'     => $action,
+            'middlewares' => $middlewares
         ];
         $this->registerSwaggerFile($swaggerFile);
     }
+    
 
     private function registerSwaggerFile($swaggerFile) {
         if ($swaggerFile && !in_array($swaggerFile, $this->swaggerFiles, true)) {

@@ -104,7 +104,6 @@ class UsuarioService
             try {
                 return $this->usuarioDAO->usuariosPorUuids($usuarioIds);
             } catch (HttpException $e) {
-                // propaga nossa própria HttpException
                 throw $e;
             } catch (\Exception $e) {
                 throw new HttpException(
@@ -114,6 +113,17 @@ class UsuarioService
                     '00'
                 );
             }
+        }
+
+        public function apagar(string $usuario_uuid): void
+        {
+            $usuario = $this->usuarioDAO->usuarioPorUuid($usuario_uuid);
+        
+            if (!$usuario) {
+                throw new HttpException('Usuário não encontrado', 404, 'USUARIO', '00');
+            }
+        
+            $this->usuarioDAO->apagarPorUuid($usuario_uuid);
         }
 
 

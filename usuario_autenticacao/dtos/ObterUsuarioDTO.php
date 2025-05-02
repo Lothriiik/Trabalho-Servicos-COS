@@ -1,4 +1,5 @@
 <?php
+//dtos/ObterUsuarioDTO.php
 
 namespace UsuarioAutenticacao\DTOs;
 

@@ -1,4 +1,6 @@
 <?php
+//dtos/ObterUsuariosDTO.php
+
 namespace UsuarioAutenticacao\DTOs;
 
 use UsuarioAutenticacao\Core\BaseDTO;

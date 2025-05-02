@@ -23,8 +23,8 @@
               - usuario_ids
             example:
               usuario_ids:
-                - "uuid-usuario-1"
-                - "uuid-usuario-2"
+                - "3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b"
+                - "2f8f1e0a-41e7-4de8-9ad40-9204892bfa"
     responses:
       '200':
         description: Lista de usuários retornada com sucesso
@@ -43,10 +43,10 @@
                   usuario_username:
                     type: string
             example:
-              - usuario_uuid: "uuid-usuario-1"
+              - usuario_uuid: "3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b"
                 usuario_nome: "Maria de Souza"
                 usuario_username: "mariadesouza"
-              - usuario_uuid: "uuid-usuario-2"
+              - usuario_uuid: "2f8f1e0a-41e7-4de8-9ad40-9204892bfa"
                 usuario_nome: "João Silva"
                 usuario_username: "joaosilva"
       '400':

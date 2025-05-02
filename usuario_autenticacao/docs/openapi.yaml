@@ -166,6 +166,65 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Usuário
+      summary: 'Remove o próprio usuário autenticado'
+      description: 'Exclui permanentemente o usuário logado. Requer token JWT válido.'
+      security:
+        -
+          BearerAuth: {  }
+      responses:
+        200:
+          description: 'Usuário removido com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Usuário removido com sucesso'
+        401:
+          description: 'Token inválido ou expirado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  ErrorCode:
+                    type: string
+                example:
+                  statusCode: 401
+                  error: 'Token inválido ou expirado'
+                  ErrorCode: '02'
+        404:
+          description: 'Usuário não encontrado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  ErrorCode:
+                    type: string
+                example:
+                  statusCode: 404
+                  error: 'Usuário não encontrado'
+                  ErrorCode: '03'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
   /logar:
     post:
       tags:
@@ -264,8 +323,8 @@ paths:
                 - usuario_ids
               example:
                 usuario_ids:
-                  - uuid-usuario-1
-                  - uuid-usuario-2
+                  - 3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b
+                  - 2f8f1e0a-41e7-4de8-9ad40-9204892bfa
       responses:
         200:
           description: 'Lista de usuários retornada com sucesso'
@@ -285,11 +344,11 @@ paths:
                       type: string
               example:
                 -
-                  usuario_uuid: uuid-usuario-1
+                  usuario_uuid: 3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b
                   usuario_nome: 'Maria de Souza'
                   usuario_username: mariadesouza
                 -
-                  usuario_uuid: uuid-usuario-2
+                  usuario_uuid: 2f8f1e0a-41e7-4de8-9ad40-9204892bfa
                   usuario_nome: 'João Silva'
                   usuario_username: joaosilva
         400:
