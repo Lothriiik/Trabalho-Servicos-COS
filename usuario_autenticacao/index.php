@@ -19,6 +19,8 @@ $router = new Router();
 $router->get('/api/docs/openapi', 'SwaggerController', 'serveOpenApi');
 
 $router->post('/usuario', 'UsuarioController', 'cadastrar', 'criar_usuario.swagger');
+$router->post('/logar', 'UsuarioController', 'logar', 'logar_usuario.swagger');
+
 
 Swagger::setRouter($router);
 

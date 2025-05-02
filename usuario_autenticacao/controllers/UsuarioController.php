@@ -5,7 +5,8 @@ namespace UsuarioAutenticacao\Controllers;
 
 use UsuarioAutenticacao\Services\UsuarioService;
 use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\DTOs\CriarUsuarioDTO; 
+use UsuarioAutenticacao\DTOS\CriarUsuarioDTO; 
+use UsuarioAutenticacao\DTOS\LogarUsuarioDTO; 
 
 class UsuarioController
 {
@@ -48,4 +49,34 @@ class UsuarioController
             ];
         }
     }
+
+    public function logar(array $dados): array
+    {
+        try {
+            $dto = new LogarUsuarioDTO($dados);
+
+            $resultado = $this->service->logar($dto);
+
+            return [
+                'status' => 200,
+                'data'   => $resultado,
+            ];
+
+        } catch (HttpException $e) {
+            return [
+                'status' => $e->getStatusCode(),
+                'error'  => $e->toArray(),
+            ];
+        } catch (\Exception $e) {
+            return [
+                'status' => 500,
+                'error'  => [
+                    'statusCode' => 500,
+                    'error'      => 'Erro interno do servidor',
+                    'ErrorCode'  => '00',
+                ],
+            ];
+        }
+    }
+
 }

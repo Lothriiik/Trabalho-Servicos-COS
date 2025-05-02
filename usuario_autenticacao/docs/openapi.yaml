@@ -101,3 +101,75 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
+  /logar:
+    post:
+      tags:
+        - Usuário
+      summary: 'Autentica um usuário'
+      description: 'Endpoint para realizar o login de um usuário e obter um token JWT'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - usuario_username
+                - usuario_senha
+              properties:
+                usuario_username:
+                  type: string
+                  description: 'Nome de usuário para login'
+                  minLength: 3
+                  maxLength: 50
+                  pattern: '^[a-zA-Z0-9]+$'
+                  example: joaosilva
+                usuario_senha:
+                  type: string
+                  format: password
+                  description: 'Senha do usuário'
+                  minLength: 6
+                  example: senha123
+              example:
+                usuario_username: joaosilva
+                usuario_senha: senha123
+      responses:
+        200:
+          description: 'Login realizado com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: 'Token JWT para autenticação'
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3V1aWQiOiIxMjM0NTY3ODkwIiwidXNlcl91c2VybmFtZSI6Im1hcmlhZGVzb3V6YSIsImV4cCI6MTYxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                example:
+                  access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3V1aWQiOiIxMjM0NTY3ODkwIiwidXNlcl91c2VybmFtZSI6Im1hcmlhZGVzb3V6YSIsImV4cCI6MTYxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        401:
+          description: 'Credenciais inválidas'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    example: 401
+                  error:
+                    type: string
+                    example: 'Credenciais inválidas'
+                  ErrorCode:
+                    type: string
+                    example: '01'
+                example:
+                  statusCode: 401
+                  error: 'Credenciais inválidas'
+                  ErrorCode: '01'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
