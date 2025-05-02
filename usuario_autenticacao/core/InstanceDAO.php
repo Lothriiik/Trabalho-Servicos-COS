@@ -1,5 +1,5 @@
 <?php
-// core/InstanceDAO.php
+//core/InstanceDAO.php
 
 namespace UsuarioAutenticacao\Core;
 

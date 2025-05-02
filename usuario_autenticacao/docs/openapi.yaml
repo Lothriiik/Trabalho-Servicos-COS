@@ -1,0 +1,103 @@
+openapi: 3.0.0
+info:
+  title: 'API de Autenticação de Usuários'
+  description: 'API para gerenciamento de usuários e autenticação'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:1410'
+    description: 'Servidor local'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        error:
+          type: string
+        errorCode:
+          type: string
+paths:
+  /usuario:
+    post:
+      tags:
+        - Usuário
+      summary: 'Cria um novo usuário'
+      description: 'Endpoint para cadastrar um novo usuário no sistema'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - usuario_nome
+                - usuario_username
+                - usuario_senha
+              properties:
+                usuario_nome:
+                  type: string
+                  description: 'Nome completo do usuário'
+                  minLength: 3
+                  maxLength: 255
+                  example: 'João da Silva'
+                usuario_username:
+                  type: string
+                  description: 'Nome de usuário para login'
+                  minLength: 3
+                  maxLength: 50
+                  pattern: '^[a-zA-Z0-9]+$'
+                  example: joaosilva
+                usuario_senha:
+                  type: string
+                  format: password
+                  description: 'Senha do usuário'
+                  minLength: 6
+                  example: senha123
+              example:
+                usuario_nome: 'João da Silva'
+                usuario_username: joaosilva
+                usuario_senha: senha123
+      responses:
+        201:
+          description: 'Usuário criado com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario_uuid:
+                    type: string
+                    format: uuid
+                    description: 'Identificador único do usuário'
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome:
+                    type: string
+                    description: 'Nome completo do usuário'
+                    example: 'João da Silva'
+                  usuario_username:
+                    type: string
+                    description: 'Nome de usuário para login'
+                    example: joaosilva
+                example:
+                  usuario_uuid: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome: 'João da Silva'
+                  usuario_username: joaosilva
+        400:
+          description: 'Dados inválidos'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
