@@ -13,5 +13,17 @@ model Grupo {
   grupo_descricao  String
   usuario_uuid_fk  String
 
-  @@map("grupos") // nome da tabela no SQLite
+  grupoUsuarios    GrupoUsuario[] // relação 1:N
+
+  @@map("grupos")
+}
+
+model GrupoUsuario {
+  usuario_grupo_uuid String @id @default(uuid())
+  usuario_uuid        String
+  grupo_uuid_fk       String
+
+  grupo               Grupo @relation(fields: [grupo_uuid_fk], references: [grupo_uuid])
+
+  @@map("grupo_usuarios") 
 }
