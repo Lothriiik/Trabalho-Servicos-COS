@@ -89,7 +89,31 @@ A proposta traz uma abordagem pura e essencial, focada na aplicação dos fundam
    php -S localhost:1410 -t usuario_autenticacao
    ```
 
----
+### 🐳 Executando com Docker
+
+Caso prefira rodar via contêiner Docker, siga os passos abaixo:
+
+1. Acesse o diretório do projeto:
+
+   ```bash
+   cd usuario_autenticacao
+   ```
+2. Crie um arquivo `.env` com base no `.env.example`.
+
+3. Construa a imagem Docker:
+
+   ```bash
+   docker build -t usuario-autenticacao-php .
+   ```
+
+4. Execute o contêiner:
+
+   ```bash
+   docker run -it --rm -p 1410:1410 usuario-autenticacao-php
+   ```
+
+> O serviço estará disponível em `http://localhost:1410`.
+
 
 ## 📚 Documentação da API
 
