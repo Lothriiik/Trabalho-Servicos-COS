@@ -50,3 +50,17 @@ export class EntrarGrupoDTO {
 
   usuario_uuid_fk: string;
 }
+
+export class SairGrupoDTO {
+
+  @ApiProperty({
+    example: '5b1f6eae-62c9-4f92-b0cb-09e5e261aa4a',
+    description: 'UUID do grupo a ser excluído',
+    format: 'uuid',
+  })
+  @IsNotEmpty({ message: 'O campo $property não pode estar vazio.' })
+  @IsUUID('4', { message: 'O campo $property deve ser um UUID válido.' })
+  grupo_uuid_fk: string;
+
+  usuario_uuid_fk: string;
+}

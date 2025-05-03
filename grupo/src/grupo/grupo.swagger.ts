@@ -154,4 +154,42 @@ export namespace EntrarGrupoDocs {
   }
 }
 
+export namespace SairGrupoDocs {
+  export function Swagger() {
+    return applyDecorators(
+      ApiBearerAuth(),
+      ApiOperation({ summary: 'Sair de um grupo existente' }),
+      ApiResponse({
+        status: 200,
+        description: 'Usuário removido do grupo com sucesso',
+        schema: {
+          example: {
+            message: 'Usuário removido do grupo com sucesso.',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 404,
+        description: 'Relação do usuário com o grupo não encontrada',
+        schema: {
+          example: {
+            statusCode: 404,
+            error: 'Usuário não está neste grupo',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 401,
+        description: 'Requisição sem autenticação',
+      }),
+      ApiResponse({
+        status: 500,
+        description: 'Erro interno no servidor',
+      }),
+    );
+  }
+}
+
+
 
