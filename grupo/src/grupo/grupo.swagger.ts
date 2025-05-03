@@ -1,3 +1,4 @@
+//grupo\src\grupo\grupo.swagger.ts
 import { applyDecorators } from '@nestjs/common';
 import {
   ApiBearerAuth,

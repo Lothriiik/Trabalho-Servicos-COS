@@ -1,3 +1,4 @@
+//grupo\src\grupo\grupo.controller.ts
 import {
     Controller,
     Post,
@@ -5,7 +6,7 @@ import {
     Request
 } from '@nestjs/common';
 import { CriarGrupoDTO } from './grupo.dto';
-import { CriarGrupoDocs } from './grupo..swagger';
+import { CriarGrupoDocs } from './grupo.swagger';
 import { GrupoService } from './grupo.service';
 
 @Controller('grupo')

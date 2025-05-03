@@ -1,3 +1,4 @@
+//grupo\src\swagger\dto\swagger-422.dto.ts
 import {ApiProperty} from "@nestjs/swagger";
 
 export class Swagger422DTO {

@@ -1,3 +1,4 @@
+//grupo\src\grupo\grupo.service.ts
 import {BadRequestException, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
 import { CriarGrupoDTO } from './grupo.dto';

@@ -1,3 +1,4 @@
+//grupo\src\app.module.ts
 import { Module } from '@nestjs/common';
 import { AutenticacaoModule } from './autenticacao/autenticacao.module';
 import { PrismaModule } from './prisma/prisma.module';

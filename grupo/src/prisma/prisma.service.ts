@@ -1,3 +1,4 @@
+//grupo\src\prisma\prisma.service.ts
 import {HttpException, HttpStatus, Injectable, OnModuleInit} from '@nestjs/common';
 import { Prisma, PrismaClient } from '@prisma/client';
 

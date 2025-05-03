@@ -1,3 +1,4 @@
+//grupo\src\grupo\grupo.module.ts
 import { Module } from '@nestjs/common';
 import { GrupoService } from './grupo.service';
 import { GrupoController } from './grupo.controller';

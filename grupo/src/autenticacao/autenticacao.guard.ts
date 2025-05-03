@@ -1,3 +1,4 @@
+//grupo\src\grupo\autenticacao.guard.ts
 import {
   CanActivate,
   ExecutionContext, HttpException, HttpStatus,
