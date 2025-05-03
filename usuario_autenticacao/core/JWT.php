@@ -1,6 +1,6 @@
 <?php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 class JWT
 {

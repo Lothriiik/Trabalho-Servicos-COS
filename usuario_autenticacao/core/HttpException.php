@@ -1,7 +1,7 @@
 <?php
 //core/exceptions/HttpException.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 use Exception;
 

@@ -1,7 +1,7 @@
 <?php
 //core/InstanceDAO.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 use PDO;
 use PDOException;

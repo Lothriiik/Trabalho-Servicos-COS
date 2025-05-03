@@ -1,7 +1,7 @@
 <?php
 //usuario_autenticacao/core/UUID.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 class UUID
 {

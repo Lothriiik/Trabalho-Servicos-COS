@@ -1,11 +1,11 @@
 <?php
 //dtos/LogarUsuarioDTO.php
 
-namespace UsuarioAutenticacao\DTOs;
+namespace UsuarioAutenticacao\dtos;
 
-use UsuarioAutenticacao\Core\BaseDTO;
-use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\Core\Validator;
+use UsuarioAutenticacao\core\BaseDTO;
+use UsuarioAutenticacao\core\HttpException;
+use UsuarioAutenticacao\core\Validator;
 
 class LogarUsuarioDTO extends BaseDTO
 {

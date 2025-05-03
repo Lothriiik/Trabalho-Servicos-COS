@@ -1,12 +1,12 @@
 <?php
 //dtos/CriarUsuarioDTO.php
 
-namespace UsuarioAutenticacao\DTOs;
+namespace UsuarioAutenticacao\dtos;
 
-use UsuarioAutenticacao\Core\BaseDTO;
-use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\Core\Validator;
-use UsuarioAutenticacao\Core\UUID;
+use UsuarioAutenticacao\core\BaseDTO;
+use UsuarioAutenticacao\core\HttpException;
+use UsuarioAutenticacao\core\Validator;
+use UsuarioAutenticacao\core\UUID;
 
 class CriarUsuarioDTO extends BaseDTO
 {

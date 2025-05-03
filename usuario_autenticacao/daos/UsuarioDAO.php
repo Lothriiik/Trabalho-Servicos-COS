@@ -1,10 +1,10 @@
 <?php
 //usuario_autenticacao/daos/UsuarioDAO.php
 
-namespace UsuarioAutenticacao\DAOs;
+namespace UsuarioAutenticacao\daos;
 
-use UsuarioAutenticacao\Core\InstanceDAO;
-use UsuarioAutenticacao\Core\HttpException;
+use UsuarioAutenticacao\core\InstanceDAO;
+use UsuarioAutenticacao\core\HttpException;
 use PDOException;
 
 class UsuarioDAO {

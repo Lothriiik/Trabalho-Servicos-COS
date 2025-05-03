@@ -1,7 +1,7 @@
 <?php
 //usuario_autenticacao/core/Validator.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 //Validator implementado como Singleton.
 class Validator

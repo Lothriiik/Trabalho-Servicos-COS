@@ -1,13 +1,13 @@
 <?php
 //controllers/UsuarioController.php
 
-namespace UsuarioAutenticacao\Controllers;
+namespace UsuarioAutenticacao\controllers;
 
-use UsuarioAutenticacao\Services\UsuarioService;
-use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\DTOS\CriarUsuarioDTO; 
-use UsuarioAutenticacao\DTOS\LogarUsuarioDTO; 
-use UsuarioAutenticacao\DTOs\ObterUsuariosDTO;
+use UsuarioAutenticacao\services\UsuarioService;
+use UsuarioAutenticacao\core\HttpException;
+use UsuarioAutenticacao\dtos\CriarUsuarioDTO; 
+use UsuarioAutenticacao\dtos\LogarUsuarioDTO; 
+use UsuarioAutenticacao\dtos\ObterUsuariosDTO;
 
 class UsuarioController
 {

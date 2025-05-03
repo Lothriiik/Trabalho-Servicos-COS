@@ -1,9 +1,9 @@
 <?php
 //dtos/ObterUsuarioDTO.php
 
-namespace UsuarioAutenticacao\DTOs;
+namespace UsuarioAutenticacao\dtos;
 
-use UsuarioAutenticacao\Core\BaseDTO;
+use UsuarioAutenticacao\core\BaseDTO;
 
 class ObterUsuarioDTO extends BaseDTO
 {

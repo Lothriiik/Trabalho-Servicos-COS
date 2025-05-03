@@ -1,10 +1,10 @@
 <?php
 //dtos/ObterUsuariosDTO.php
 
-namespace UsuarioAutenticacao\DTOs;
+namespace UsuarioAutenticacao\dtos;
 
-use UsuarioAutenticacao\Core\BaseDTO;
-use UsuarioAutenticacao\Core\HttpException;
+use UsuarioAutenticacao\core\BaseDTO;
+use UsuarioAutenticacao\core\HttpException;
 
 class ObterUsuariosDTO extends BaseDTO
 {

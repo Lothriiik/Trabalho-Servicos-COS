@@ -1,7 +1,7 @@
 <?php
 //migrations/create_usuario_table.php
 
-use UsuarioAutenticacao\Core\InstanceDAO;
+use UsuarioAutenticacao\core\InstanceDAO;
 
 $db = InstanceDAO::getInstance();
 

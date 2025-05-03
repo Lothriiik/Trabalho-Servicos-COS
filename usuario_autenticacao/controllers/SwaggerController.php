@@ -1,9 +1,9 @@
 <?php
 //controllers/SwaggerController.php
 
-namespace UsuarioAutenticacao\Controllers;
+namespace UsuarioAutenticacao\controllers;
 
-use UsuarioAutenticacao\Core\Swagger;
+use UsuarioAutenticacao\core\Swagger;
 
 class SwaggerController
 {

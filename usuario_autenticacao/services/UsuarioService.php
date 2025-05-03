@@ -3,13 +3,13 @@
 
 namespace UsuarioAutenticacao\Services;
 
-use UsuarioAutenticacao\DTOs\CriarUsuarioDTO;
-use UsuarioAutenticacao\DTOs\LogarUsuarioDTO;
-use UsuarioAutenticacao\DTOs\ObterUsuarioDTO;
-use UsuarioAutenticacao\DTOs\ObterUsuariosDTO;
-use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\Core\JWT;
-use UsuarioAutenticacao\DAOs\UsuarioDAO;
+use UsuarioAutenticacao\dtos\CriarUsuarioDTO;
+use UsuarioAutenticacao\dtos\LogarUsuarioDTO;
+use UsuarioAutenticacao\dtos\ObterUsuarioDTO;
+use UsuarioAutenticacao\dtos\ObterUsuariosDTO;
+use UsuarioAutenticacao\core\HttpException;
+use UsuarioAutenticacao\core\JWT;
+use UsuarioAutenticacao\daos\UsuarioDAO;
 
 class UsuarioService
 {

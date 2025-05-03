@@ -1,7 +1,7 @@
 <?php
 //usuario_autenticacao/core/Router.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 class Router {
     private $routes = [];
@@ -24,7 +24,7 @@ class Router {
             $route = $this->match($method, $uri);
             error_log("Rota encontrada: " . json_encode($route));
 
-            $controllerClass = "UsuarioAutenticacao\\Controllers\\{$route['controller']}";
+            $controllerClass = "UsuarioAutenticacao\\controllers\\{$route['controller']}";
             if (!class_exists($controllerClass)) {
                 throw new HttpException("Controller {$route['controller']} não encontrado", 500, '00');
             }

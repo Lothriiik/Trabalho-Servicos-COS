@@ -1,7 +1,7 @@
 <?php
 //usuario_autenticacao/core/Swagger.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 use Symfony\Component\Yaml\Yaml;
 

@@ -1,9 +1,9 @@
 <?php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
-use UsuarioAutenticacao\Core\HttpException;
-use UsuarioAutenticacao\Core\JWT;
+use UsuarioAutenticacao\core\HttpException;
+use UsuarioAutenticacao\core\JWT;
 
 class AuthMiddleware
 {

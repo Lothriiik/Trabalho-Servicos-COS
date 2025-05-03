@@ -1,7 +1,7 @@
 <?php
 //core/BaseDTO.php
 
-namespace UsuarioAutenticacao\Core;
+namespace UsuarioAutenticacao\core;
 
 use ReflectionClass;
 

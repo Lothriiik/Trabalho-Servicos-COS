@@ -8,9 +8,9 @@ $dotenv->load();
 
 require_once __DIR__ . '/migrations/create_usuario_table.php';
 
-use UsuarioAutenticacao\Core\Router;
-use UsuarioAutenticacao\Core\Swagger;
-use UsuarioAutenticacao\Core\AuthMiddleware;
+use UsuarioAutenticacao\core\Router;
+use UsuarioAutenticacao\core\Swagger;
+use UsuarioAutenticacao\core\AuthMiddleware;
 
 // Configuração do roteamento
 header('Content-Type: application/json');
