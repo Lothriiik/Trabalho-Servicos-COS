@@ -1,5 +1,5 @@
 //grupo\src\grupo\grupo.dto.ts
-import {IsNotEmpty, IsString} from "class-validator";
+import {IsNotEmpty, IsString, IsUUID} from "class-validator";
 import {ApiProperty} from "@nestjs/swagger";
 
 export class CriarGrupoDTO {
@@ -21,4 +21,18 @@ export class CriarGrupoDTO {
     grupo_descricao: string;
   
     usuario_uuid_fk: string;
+}
+
+export class ExcluirGrupoDTO {
+
+  @ApiProperty({
+    example: '5b1f6eae-62c9-4f92-b0cb-09e5e261aa4a',
+    description: 'UUID do grupo a ser excluído',
+    format: 'uuid',
+  })
+  @IsNotEmpty({ message: 'O campo $property não pode estar vazio.' })
+  @IsUUID('4', { message: 'O campo $property deve ser um UUID válido.' })
+  grupo_uuid: string;
+
+  usuario_uuid_fk: string;
 }

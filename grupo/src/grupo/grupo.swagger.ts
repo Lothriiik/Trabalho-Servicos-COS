@@ -67,3 +67,42 @@ export namespace CriarGrupoDocs {
     );
   }
 }
+
+export namespace ExcluirGrupoDocs {
+  export function Swagger() {
+    return applyDecorators(
+      ApiBearerAuth(),
+      ApiOperation({ summary: 'Excluir um grupo existente' }),
+      ApiResponse({
+        status: 200,
+        description: 'Grupo excluído com sucesso',
+        schema: { example: { message: 'Grupo excluído com sucesso.' } },
+      }),
+      ApiResponse({
+        status: 403,
+        description: 'Você não tem permissão para excluir este grupo',
+        schema: {
+          example: {
+            statusCode: 403,
+            error: 'Você não tem permissão para excluir este grupo',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 404,
+        description: 'Grupo não encontrado',
+        schema: {
+          example: {
+            statusCode: 404,
+            error: 'Grupo não encontrado',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({ status: 401, description: 'Requisição sem autenticação' }),
+      ApiResponse({ status: 500, description: 'Erro interno no servidor' }),
+    );
+  }
+}
+

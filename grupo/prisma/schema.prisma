@@ -8,22 +8,22 @@ datasource db {
 }
 
 model Grupo {
-  grupo_uuid       String  @id @default(uuid())
+  grupo_uuid       String          @id @default(uuid())
   grupo_titulo     String
   grupo_descricao  String
   usuario_uuid_fk  String
 
-  grupoUsuarios    GrupoUsuario[] // relação 1:N
+  grupoUsuarios    GrupoUsuario[]  // relação 1:N
 
   @@map("grupos")
 }
 
 model GrupoUsuario {
-  usuario_grupo_uuid String @id @default(uuid())
+  usuario_grupo_uuid String  @id @default(uuid())
   usuario_uuid        String
   grupo_uuid_fk       String
 
-  grupo               Grupo @relation(fields: [grupo_uuid_fk], references: [grupo_uuid])
+  grupo Grupo @relation(fields: [grupo_uuid_fk], references: [grupo_uuid], onDelete: Cascade)
 
   @@map("grupo_usuarios") 
 }
