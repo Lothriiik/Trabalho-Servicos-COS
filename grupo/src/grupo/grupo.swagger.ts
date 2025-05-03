@@ -191,5 +191,69 @@ export namespace SairGrupoDocs {
   }
 }
 
+export namespace ObterGrupoDocs {
+  export class Response200 {
+    @ApiProperty({
+      example: 'c8243e8e-9d5d-4b20-8dc1-20b4568d7c26',
+      description: 'UUID do grupo',
+      format: 'uuid',
+    })
+    grupo_uuid: string;
+
+    @ApiProperty({
+      example: 'Grupo de Estudos de IA',
+      description: 'Título do grupo',
+    })
+    grupo_titulo: string;
+
+    @ApiProperty({
+      example: 'Discussões sobre Inteligência Artificial.',
+      description: 'Descrição do grupo',
+    })
+    grupo_descricao: string;
+
+    @ApiProperty({
+      example: [
+        '2f8f1e0a-51e7-4de8-9ad0-920a4b892b1a',
+        '9d2bb616-2f2f-4901-9e07-bf2f306e04c5',
+      ],
+      description: 'Lista de usuários associados ao grupo (UUIDs)',
+      type: [String],
+    })
+    usuarios: string[];
+  }
+
+  export function Swagger() {
+    return applyDecorators(
+      ApiBearerAuth(),
+      ApiOperation({ summary: 'Obter dados de um grupo específico' }),
+      ApiResponse({
+        status: 200,
+        description: 'Grupo retornado com sucesso',
+        type: Response200,
+      }),
+      ApiResponse({
+        status: 404,
+        description: 'Grupo não encontrado',
+        schema: {
+          example: {
+            statusCode: 404,
+            error: 'Grupo não encontrado',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 401,
+        description: 'Requisição sem autenticação',
+      }),
+      ApiResponse({
+        status: 500,
+        description: 'Erro interno no servidor',
+      }),
+    );
+  }
+}
+
 
 

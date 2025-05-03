@@ -1,7 +1,7 @@
 //grupo\src\grupo\grupo.service.ts
 import {BadRequestException, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
-import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO, SairGrupoDTO } from './grupo.dto';
+import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO, ObterGrupoDTO, SairGrupoDTO } from './grupo.dto';
 
 @Injectable()
 export class GrupoService {
@@ -131,6 +131,46 @@ export class GrupoService {
   
       return { message: 'Usuário removido do grupo com sucesso.' };
     }
+
+    async obterGrupo(obterGrupoDTO: ObterGrupoDTO): Promise<any> {
+    
+      const { grupo_uuid, usuario_uuid_fk } = obterGrupoDTO;
+
+      try {
+        const grupo = await this.prisma.grupo.findUnique({
+          where: { grupo_uuid },
+          select: {
+            grupo_uuid: true,
+            grupo_titulo: true,
+            grupo_descricao: true,
+          },
+        });
+    
+        if (!grupo) {
+          throw new HttpException(
+            {
+              statusCode: 404,
+              error: 'Grupo não encontrado',
+              ErrorCode: '00',
+            },
+            HttpStatus.NOT_FOUND,
+          );
+        }
+    
+        const usuarios = await this.prisma.grupoUsuario.findMany({
+          where: { grupo_uuid_fk: grupo_uuid },
+          select: { usuario_uuid_fk: true },
+        });
+    
+        return {
+          ...grupo,
+          usuarios: usuarios.map((u) => u.usuario_uuid_fk),
+        };
+      } catch (e) {
+        throw this.prisma.tratamentoErros(e);
+      }
+    }
+    
     
 
 }
