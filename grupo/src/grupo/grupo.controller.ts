@@ -9,10 +9,10 @@ import {
     Get,
   } from '@nestjs/common';
   import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO, ObterGrupoDTO, SairGrupoDTO } from './grupo.dto';
-  import { CriarGrupoDocs, ExcluirGrupoDocs, EntrarGrupoDocs, SairGrupoDocs, ObterGrupoDocs } from './grupo.swagger';
+  import { CriarGrupoDocs, ExcluirGrupoDocs, EntrarGrupoDocs, SairGrupoDocs, ObterGrupoDocs, ObterGruposDisponiveisDocs } from './grupo.swagger';
   import { GrupoService } from './grupo.service';
 
-@Controller('grupo')
+@Controller('grupos')
 export class GrupoController {
     constructor(private readonly grupoService: GrupoService){}
 
@@ -64,6 +64,14 @@ export class GrupoController {
     ): Promise<any> {
         obterGrupoDTO.usuario_uuid_fk = req.usuario_uuid;
         return await this.grupoService.obterGrupo(obterGrupoDTO);
+    }
+
+    @Get('listar/disponiveis')
+    @ObterGruposDisponiveisDocs.Swagger()
+    async obterGrupoDisponiveis(
+        @Request() req,
+    ): Promise<any> {
+        return await this.grupoService.obterGrupoDisponiveis(req.usuario_uuid);
     }
 
     

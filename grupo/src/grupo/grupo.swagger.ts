@@ -255,5 +255,58 @@ export namespace ObterGrupoDocs {
   }
 }
 
+export namespace ObterGruposDisponiveisDocs {
+  export class Response200 {
+    @ApiProperty({
+      example: 'c8243e8e-9d5d-4b20-8dc1-20b4568d7c26',
+      description: 'UUID do grupo',
+      format: 'uuid',
+    })
+    grupo_uuid: string;
+
+    @ApiProperty({
+      example: 'Grupo de Estudos de IA',
+      description: 'Título do grupo',
+    })
+    grupo_titulo: string;
+
+    @ApiProperty({
+      example: 'Discussões sobre Inteligência Artificial.',
+      description: 'Descrição do grupo',
+    })
+    grupo_descricao: string;
+  }
+
+  export function Swagger() {
+    return applyDecorators(
+      ApiBearerAuth(),
+      ApiOperation({
+        summary: 'Listar todos os grupos disponíveis para o usuário',
+      }),
+      ApiResponse({
+        status: 200,
+        description: 'Lista de grupos retornada com sucesso',
+        type: Response200,
+        isArray: true,
+      }),
+      ApiResponse({
+        status: 401,
+        description: 'Requisição sem autenticação',
+      }),
+      ApiResponse({
+        status: 500,
+        description: 'Erro ao buscar grupos',
+        schema: {
+          example: {
+            statusCode: 500,
+            error: 'Erro ao buscar grupos',
+            ErrorCode: '00',
+          },
+        },
+      }),
+    );
+  }
+}
+
 
 

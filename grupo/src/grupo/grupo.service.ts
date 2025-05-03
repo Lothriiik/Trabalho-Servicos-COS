@@ -170,6 +170,44 @@ export class GrupoService {
         throw this.prisma.tratamentoErros(e);
       }
     }
+
+    async obterGrupoDisponiveis(usuario_uuid: string): Promise<any> {
+      try {
+        const gruposUsuario = await this.prisma.grupoUsuario.findMany({
+          where: { usuario_uuid_fk: usuario_uuid },
+          select: { grupo_uuid_fk: true },
+        });
+    
+        const gruposIgnorar = gruposUsuario.map((g) => g.grupo_uuid_fk);
+    
+        const grupos = await this.prisma.grupo.findMany({
+          where: {
+            NOT: {
+              OR: [
+                { usuario_uuid_fk: usuario_uuid },
+                { grupo_uuid: { in: gruposIgnorar } },
+              ],
+            },
+          },
+          select: {
+            grupo_uuid: true,
+            grupo_titulo: true,
+            grupo_descricao: true,
+          },
+        });
+    
+        return grupos;
+      } catch (e) {
+        throw new HttpException(
+          {
+            statusCode: 500,
+            error: 'Erro ao buscar grupos',
+            ErrorCode: '00',
+          },
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+    }
     
     
 
