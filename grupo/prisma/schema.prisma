@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Grupo {
+  grupo_uuid       String  @id @default(uuid())
+  grupo_titulo     String
+  grupo_descricao  String
+  usuario_uuid_fk  String
+
+  @@map("grupos") // nome da tabela no SQLite
+}

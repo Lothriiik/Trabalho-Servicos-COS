@@ -6,6 +6,7 @@
 
 # Ignorar dependências (caso use composer)
 vendor/
+node_modules/
 
 # Ignorar cache ou arquivos temporários
 cache/
@@ -20,6 +21,9 @@ tmp/
 # Ignorar pasta de dados
 data/
 
+# Ignorar arquivos gerados pelo NestJS
+dist/
+coverage/
 
 # Ignorar IDEs e editores
 .vscode/
