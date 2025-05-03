@@ -194,7 +194,7 @@ export namespace SairGrupoDocs {
 export namespace ObterGrupoDocs {
   export class Response200 {
     @ApiProperty({
-      example: 'c8243e8e-9d5d-4b20-8dc1-20b4568d7c26',
+      example: '5496b16e-df27-4847-adc7-5e00998379c6',
       description: 'UUID do grupo',
       format: 'uuid',
     })
@@ -207,15 +207,15 @@ export namespace ObterGrupoDocs {
     grupo_titulo: string;
 
     @ApiProperty({
-      example: 'Discussões sobre Inteligência Artificial.',
+      example: 'Grupo dedicado à discussão de temas de Inteligência Artificial.',
       description: 'Descrição do grupo',
     })
     grupo_descricao: string;
 
     @ApiProperty({
       example: [
-        '2f8f1e0a-51e7-4de8-9ad0-920a4b892b1a',
-        '9d2bb616-2f2f-4901-9e07-bf2f306e04c5',
+        '123e4567-e89b-12d3-a456-426614174000',
+        '987e4567-e89b-12d3-a456-426614174506',
       ],
       description: 'Lista de usuários associados ao grupo (UUIDs)',
       type: [String],
@@ -230,7 +230,18 @@ export namespace ObterGrupoDocs {
       ApiResponse({
         status: 200,
         description: 'Grupo retornado com sucesso',
-        type: Response200,
+        //type: Response200,
+        schema: {
+          example: {
+            grupo_uuid: '5496b16e-df27-4847-adc7-5e00998379c6',
+            grupo_titulo: 'Grupo de Estudos de IA',
+            grupo_descricao: 'Grupo dedicado à discussão de temas de Inteligência Artificial.',
+            usuarios: [
+              '123e4567-e89b-12d3-a456-426614174000',
+              '987e4567-e89b-12d3-a456-426614174506',
+            ],
+          },
+        },
       }),
       ApiResponse({
         status: 404,
@@ -254,6 +265,7 @@ export namespace ObterGrupoDocs {
     );
   }
 }
+
 
 export namespace ObterGruposDisponiveisDocs {
   export class Response200 {
