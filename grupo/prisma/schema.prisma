@@ -20,10 +20,11 @@ model Grupo {
 
 model GrupoUsuario {
   usuario_grupo_uuid String  @id @default(uuid())
-  usuario_uuid        String
+  usuario_uuid_fk       String
   grupo_uuid_fk       String
 
   grupo Grupo @relation(fields: [grupo_uuid_fk], references: [grupo_uuid], onDelete: Cascade)
 
+  @@unique([usuario_uuid_fk, grupo_uuid_fk])
   @@map("grupo_usuarios") 
 }

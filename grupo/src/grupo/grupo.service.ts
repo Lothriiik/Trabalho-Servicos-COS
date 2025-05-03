@@ -1,7 +1,7 @@
 //grupo\src\grupo\grupo.service.ts
 import {BadRequestException, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
-import { CriarGrupoDTO, ExcluirGrupoDTO } from './grupo.dto';
+import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO } from './grupo.dto';
 
 @Injectable()
 export class GrupoService {
@@ -52,6 +52,38 @@ export class GrupoService {
       return { message: 'Grupo excluído com sucesso.' };
     }
     
+    async entrarGrupo(entrarGrupoDTO: EntrarGrupoDTO): Promise<any> {
+      
+      const { grupo_uuid_fk, usuario_uuid_fk } = entrarGrupoDTO;
+
+      const grupoExiste = await this.prisma.grupo.findUnique({
+        where: { grupo_uuid: grupo_uuid_fk },
+      }).catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
+  
+      if (!grupoExiste) {
+        throw new HttpException(
+          {
+            statusCode: 404,
+            error: 'Grupo não encontrado',
+            ErrorCode: '00',
+          },
+          HttpStatus.NOT_FOUND,
+        );
+      }
+  
+      await this.prisma.grupoUsuario.create({
+        data: {
+          grupo_uuid_fk: grupo_uuid_fk,
+          usuario_uuid_fk: usuario_uuid_fk,
+        },
+      }).catch((e) => {
+        throw this.prisma.tratamentoErros(e);
+      });
+  
+      return { message: 'Usuário adicionado ao grupo com sucesso.' };
+    }
     
 
 }

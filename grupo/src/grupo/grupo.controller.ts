@@ -7,8 +7,8 @@ import {
     Delete,
     Param,
   } from '@nestjs/common';
-  import { CriarGrupoDTO, ExcluirGrupoDTO } from './grupo.dto';
-  import { CriarGrupoDocs, ExcluirGrupoDocs } from './grupo.swagger';
+  import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO } from './grupo.dto';
+  import { CriarGrupoDocs, ExcluirGrupoDocs, EntrarGrupoDocs } from './grupo.swagger';
   import { GrupoService } from './grupo.service';
 
 @Controller('grupo')
@@ -34,5 +34,17 @@ export class GrupoController {
         excluirGrupoDTO.usuario_uuid_fk = req.usuario_uuid;
         return await this.grupoService.excluirGrupo(excluirGrupoDTO);
     }
+
+    @Post('entrar/:grupo_uuid')
+    @EntrarGrupoDocs.Swagger()
+    async entrarGrupo(
+        @Body() entrarGrupoDTO: EntrarGrupoDTO,
+        @Request() req,
+    ): Promise<any> {
+        entrarGrupoDTO.usuario_uuid_fk = req.usuario_uuid;
+        return await this.grupoService.entrarGrupo(entrarGrupoDTO);
+    }
+
+    
 
 }

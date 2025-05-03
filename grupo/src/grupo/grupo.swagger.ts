@@ -106,3 +106,52 @@ export namespace ExcluirGrupoDocs {
   }
 }
 
+export namespace EntrarGrupoDocs {
+  export function Swagger() {
+    return applyDecorators(
+      ApiBearerAuth(),
+      ApiOperation({ summary: 'Entrar em um grupo existente' }),
+      ApiResponse({
+        status: 201,
+        description: 'Usuário adicionado ao grupo com sucesso',
+        schema: {
+          example: {
+            message: 'Usuário adicionado ao grupo com sucesso.',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 403,
+        description: 'Usuário já participa deste grupo',
+        schema: {
+          example: {
+            statusCode: 403,
+            error: 'Usuário já participa deste grupo',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 404,
+        description: 'Grupo não encontrado',
+        schema: {
+          example: {
+            statusCode: 404,
+            error: 'Grupo não encontrado',
+            ErrorCode: '00',
+          },
+        },
+      }),
+      ApiResponse({
+        status: 401,
+        description: 'Requisição sem autenticação',
+      }),
+      ApiResponse({
+        status: 500,
+        description: 'Erro interno no servidor',
+      }),
+    );
+  }
+}
+
+
