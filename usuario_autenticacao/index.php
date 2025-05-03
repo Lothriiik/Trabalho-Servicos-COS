@@ -1,12 +1,12 @@
 <?php
 //usuario_autenticacao\index.php
 
-require DIR . '/vendor/autoload.php';
+require __DIR__ . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(DIR);
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
 $dotenv->load();
 
-require_once DIR . '/migrations/create_usuario_table.php';
+require_once __DIR__ . '/migrations/create_usuario_table.php';
 
 use UsuarioAutenticacao\core\Router;
 use UsuarioAutenticacao\core\Swagger;

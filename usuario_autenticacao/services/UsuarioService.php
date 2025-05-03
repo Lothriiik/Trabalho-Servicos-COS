@@ -60,7 +60,7 @@ class UsuarioService
         $jwt_expiration = (int) ($_ENV['JWT_EXPIRATION']);
 
         $payload = [
-            'usuario_uuid' => $usuario['usuario_uuid'],
+            'sub' => $usuario['usuario_uuid'],
             'usuario_username' => $usuario['usuario_username'],
             'exp' => time() + $jwt_expiration
         ];

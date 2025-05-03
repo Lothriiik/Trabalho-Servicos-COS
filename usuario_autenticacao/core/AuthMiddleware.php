@@ -30,9 +30,9 @@ class AuthMiddleware
         $token = str_replace('Bearer ', '', $token);
         $payload = JWT::decode($token, $this->jwtSecret);
 
-        error_log("UUID do payload: " . ($payload['usuario_uuid'] ?? 'não definido'));
+        error_log("UUID do payload: " . ($payload['sub'] ?? 'não definido'));
 
-        if (!isset($payload['usuario_uuid'])) {
+        if (!isset($payload['sub'])) {
             throw new HttpException('Token inválido ou expirado', 401, 'AUTHENTICATION', '02');
         }
 
@@ -40,9 +40,9 @@ class AuthMiddleware
         if (!empty($params)) {
             $last = end($params);
             if (is_array($last)) {
-                $input = array_pop($params); // Remove do final
-                $input['usuario_uuid'] = $payload['usuario_uuid']; // Injeta o UUID
-                $params[] = $input; // Adiciona de volta ao final
+                $input = array_pop($params); 
+                $input['usuario_uuid'] = $payload['sub']; 
+                $params[] = $input;
             }
         }
 
