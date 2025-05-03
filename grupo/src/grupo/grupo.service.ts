@@ -1,6 +1,6 @@
 import {BadRequestException, HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {PrismaService} from "../prisma/prisma.service";
-import { CriarGrupoDTO } from './dto/criar-grupo.dto';
+import { CriarGrupoDTO } from './grupo.dto';
 
 @Injectable()
 export class GrupoService {
