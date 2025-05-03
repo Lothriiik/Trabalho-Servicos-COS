@@ -9,7 +9,7 @@ import {
     Get,
   } from '@nestjs/common';
   import { CriarGrupoDTO, EntrarGrupoDTO, ExcluirGrupoDTO, ObterGrupoDTO, SairGrupoDTO } from './grupo.dto';
-  import { CriarGrupoDocs, ExcluirGrupoDocs, EntrarGrupoDocs, SairGrupoDocs, ObterGrupoDocs, ObterGruposDisponiveisDocs } from './grupo.swagger';
+  import { CriarGrupoDocs, ExcluirGrupoDocs, EntrarGrupoDocs, SairGrupoDocs, ObterGrupoDocs, ObterGruposDisponiveisDocs, ObterGruposMeuDocs } from './grupo.swagger';
   import { GrupoService } from './grupo.service';
 
 @Controller('grupos')
@@ -72,6 +72,14 @@ export class GrupoController {
         @Request() req,
     ): Promise<any> {
         return await this.grupoService.obterGrupoDisponiveis(req.usuario_uuid);
+    }
+
+    @Get('listar/meu')
+    @ObterGruposMeuDocs.Swagger()
+    async obterGrupoMeu(
+        @Request() req,
+    ): Promise<any> {
+        return await this.grupoService.obterGrupoMeu(req.usuario_uuid);
     }
 
     
