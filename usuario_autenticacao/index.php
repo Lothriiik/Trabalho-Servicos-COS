@@ -1,16 +1,17 @@
 <?php
 //usuario_autenticacao\index.php
 
-require __DIR__ . '/vendor/autoload.php';
+require DIR . '/vendor/autoload.php';
 
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv = Dotenv\Dotenv::createImmutable(DIR);
 $dotenv->load();
 
-require_once __DIR__ . '/migrations/create_usuario_table.php';
+require_once DIR . '/migrations/create_usuario_table.php';
 
 use UsuarioAutenticacao\core\Router;
 use UsuarioAutenticacao\core\Swagger;
 use UsuarioAutenticacao\core\AuthMiddleware;
+use UsuarioAutenticacao\core\CorsMiddleware;
 
 // Configuração do roteamento
 header('Content-Type: application/json');
@@ -27,6 +28,7 @@ $router->post('/usuarios', 'UsuarioController', 'listar', 'obter_usuarios.swagge
 $router->delete('/usuario', 'UsuarioController', 'apagar', 'apagar_usuario.swagger', [$authMiddleware]);
 
 Swagger::setRouter($router);
+CorsMiddleware::handle();
 
 $router->handleRequest();
 
