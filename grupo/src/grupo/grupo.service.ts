@@ -53,15 +53,14 @@ export class GrupoService {
     }
     
     async entrarGrupo(entrarGrupoDTO: EntrarGrupoDTO): Promise<any> {
-      
       const { grupo_uuid_fk, usuario_uuid_fk } = entrarGrupoDTO;
-
+    
       const grupoExiste = await this.prisma.grupo.findUnique({
         where: { grupo_uuid: grupo_uuid_fk },
       }).catch((e) => {
         throw this.prisma.tratamentoErros(e);
       });
-  
+    
       if (!grupoExiste) {
         throw new HttpException(
           {
@@ -72,18 +71,30 @@ export class GrupoService {
           HttpStatus.NOT_FOUND,
         );
       }
-  
+    
+      if (grupoExiste.usuario_uuid_fk === usuario_uuid_fk) {
+        throw new HttpException(
+          {
+            statusCode: 403,
+            error: 'Você já é o dono deste grupo',
+            ErrorCode: '00',
+          },
+          HttpStatus.FORBIDDEN,
+        );
+      }
+    
       await this.prisma.grupoUsuario.create({
         data: {
-          grupo_uuid_fk: grupo_uuid_fk,
-          usuario_uuid_fk: usuario_uuid_fk,
+          grupo_uuid_fk,
+          usuario_uuid_fk,
         },
       }).catch((e) => {
         throw this.prisma.tratamentoErros(e);
       });
-  
+    
       return { message: 'Usuário adicionado ao grupo com sucesso.' };
     }
+    
 
     async sairGrupo(sairGrupoDTO: SairGrupoDTO): Promise<any> {
       
