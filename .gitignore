@@ -7,11 +7,14 @@
 # Ignorar dependências (caso use composer)
 vendor/
 node_modules/
+venv/
 
 # Ignorar cache ou arquivos temporários
 cache/
 tmp/
 *.tmp
+__pycache__/
+*.py[cod]
 
 # Ignorar banco de dados local
 *.sqlite
