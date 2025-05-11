@@ -84,19 +84,21 @@ class Router {
     
         return [];
     }
-    
+
 
     private function sendResponse($response) {
-        http_response_code($response['status']);
+        $normalizedUri = $this->normalizeUri($_SERVER['REQUEST_URI']);
 
-        // Se for a rota de documentação, envia como YAML
-        if (strpos($_SERVER['REQUEST_URI'], '/api/docs/openapi') !== false) {
-            header('Content-Type: application/yaml');
+        if (preg_match('#openapi$#', $normalizedUri)) {
+            header_remove(); // remove quaisquer headers anteriores
+            header('Content-Type: application/yaml; charset=utf-8');
+            header('Content-Disposition: inline; filename="openapi.yaml"');
             echo $response['data'];
-            return;
+            flush(); // força envio
+            exit;    // evita qualquer interferência posterior
         }
 
-        // Para outras rotas, envia como JSON
+        http_response_code($response['status']);
         echo json_encode($response['data'] ?? $response['error']);
     }
 
@@ -187,12 +189,27 @@ class Router {
     }
 
     private function normalizeUri($uri) {
-        $uri = strtok($uri, '?');
-        $uri = str_replace($this->basePath, '', $uri);
-        $uri = '/' . trim($uri, '/');
+        $uri = strtok($uri, '?'); // remove query string
+
+        // Normaliza basePath com barra
+        $basePath = '/' . trim($this->basePath, '/');
+
+        // Remove somente se for prefixo exato (com barra seguinte ou final da URI)
+        if ($basePath !== '/' && strpos($uri, $basePath) === 0) {
+            $after = substr($uri, strlen($basePath));
+            if ($after === '' || $after[0] === '/') {
+                $uri = $after;
+            }
+        }
+
+        // Garante a barra inicial
+        $uri = '/' . ltrim($uri, '/');
+
         error_log("URI normalizada: $uri");
         return $uri;
     }
+
+
 
     private function convertRouteToPattern($route) {
         $pattern = preg_replace('/\{([a-zA-Z]+)\}/', '([^/]+)', $route);
