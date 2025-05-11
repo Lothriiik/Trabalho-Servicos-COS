@@ -1,10 +1,13 @@
-Aqui está a versão revisada e clara do seu `README.md`, com a explicação ajustada: o **NGINX é utilizado como proxy reverso e balanceador**, enquanto o **API Gateway em Go atua quando há necessidade de agregação ou lógica extra**:
+# 🧭 NGINX (Proxy Reverso + Encaminhamento)
+
+Este projeto implementa uma arquitetura de microsserviços com **NGINX** como **proxy reverso e balanceador de carga**. A estrutura busca simplicidade, desempenho e flexibilidade na orquestração de serviços.
 
 ---
 
-# 🧭 API Gateway com Go + NGINX (Proxy Reverso + Encaminhamento)
+## ⚠️ Pré-requisitos
 
-Este projeto implementa uma arquitetura de microsserviços com **API Gateway em Go** e **NGINX** como **proxy reverso e balanceador de carga**. A estrutura busca simplicidade, desempenho e flexibilidade na orquestração de serviços.
+* É **obrigatório iniciar previamente os serviços de Usuário, Grupo e API Gateway** antes de subir o container do NGINX, pois ele depende da resolução de nome via Docker para encaminhar corretamente as requisições.
+* Certifique-se de que as **imagens Docker de cada serviço já estejam criadas**. As instruções de build estão disponíveis nas pastas específicas de cada serviço (`/usuario`, `/grupo` e `/api_gateway`).
 
 ---
 
@@ -21,26 +24,27 @@ docker network create servicos-cos-net
 ### 1. Serviço de Usuário (PHP)
 
 ```bash
-docker run --rm -d --name usuario-svc --network servicos-cos-net -p 1410:8080 usuario-image
+docker run --rm --name usuario-svc --network servicos-cos-net -p 1410:1410 usuario-autenticacao-php
 ```
 
 ### 2. Serviço de Grupo (NestJS)
 
 ```bash
-docker run --rm -d --name grupo-svc --network servicos-cos-net -p 1411:8080 grupo-image
+docker run --rm --name grupo-svc --network servicos-cos-net -p 1411:1411 grupo-nestjs
 ```
 
 ### 3. API Gateway (Go)
 
 ```bash
-docker run --rm -d --name api-gateway --network servicos-cos-net -p 8080:8080 api-gateway-image
+docker run --rm --name gateway-svc --network servicos-cos-net -p 8080:8080 api-gateway
 ```
 
 ### 4. NGINX (porta pública 8000)
 
 ```bash
+cd nginx
 docker rm -f nginx-gateway 2>/dev/null
-docker run -d --name nginx-gateway --network servicos-cos-net -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro -p 8000:80 nginx:alpine
+docker run --name nginx-gateway --network servicos-cos-net -v $(pwd)/nginx.conf:/etc/nginx/nginx.conf:ro -p 8000:80 nginx:alpine
 ```
 
 ---
@@ -58,7 +62,6 @@ docker run -d --name nginx-gateway --network servicos-cos-net -v $(pwd)/nginx.co
 
 ## 💬 Observações
 
-* O **API Gateway em Go** é responsável por rotas que exigem **lógica adicional**, como autenticação com JWT ou agregação simples de dados entre serviços.
 * O **NGINX** atua como **proxy reverso e balanceador de carga**, expondo a aplicação externamente e encaminhando requisições diretamente para os serviços, quando não há necessidade de lógica no Gateway.
 * Foi decidido utilizar o **NGINX como frontal principal**, pois **cerca de 90% das requisições não exigem agregação ou lógica adicional**. Assim, evita-se o roteamento desnecessário via Go, o que **melhora o desempenho e reduz a complexidade**.
 * Embora fosse possível centralizar tudo via o Gateway em Go, essa abordagem exigiria **recriar a lógica de redirecionamento, lidar com documentação duplicada** e ainda **pioraria o desempenho geral**, pois todas as requisições passariam pela aplicação Go.
