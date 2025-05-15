@@ -1,0 +1,25 @@
+
+
+.titlecard{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 290px;
+
+    min-width: 0;
+    display: block; 
+}
+
+.descriptioncard{
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 250px;
+    min-width: 0;
+    display: block; 
+    height: 50px;
+
+}

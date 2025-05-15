@@ -1,0 +1,36 @@
+# Ignorar arquivos de log
+*.log
+
+# Ignorar credenciais e variáveis de ambiente
+.env
+
+# Ignorar dependências (caso use composer)
+vendor/
+node_modules/
+venv/
+
+# Ignorar cache ou arquivos temporários
+cache/
+tmp/
+*.tmp
+__pycache__/
+*.py[cod]
+
+# Ignorar banco de dados local
+*.sqlite
+*.sqlite3
+*.db
+
+# Ignorar pasta de dados
+data/
+
+# Ignorar a pasta docs dentro de api_gateway
+/api_gateway/docs/
+
+# Ignorar arquivos gerados pelo NestJS
+dist/
+coverage/
+
+# Ignorar IDEs e editores
+.vscode/
+.idea/

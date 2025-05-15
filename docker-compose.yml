@@ -1,0 +1,50 @@
+version: "3.8"
+
+services:
+  usuario-svc:
+    build:
+      context: ./usuario_autenticacao
+    container_name: usuario-svc
+    ports:
+      - "1410:1410"
+    networks:
+      - servicos-cos-net
+
+  grupo-svc:
+    build:
+      context: ./grupo
+    container_name: grupo-svc
+    ports:
+      - "1411:1411"
+    networks:
+      - servicos-cos-net
+
+  gateway-svc:
+    build:
+      context: ./api_gateway
+    container_name: gateway-svc
+    ports:
+      - "8080:8080"
+    networks:
+      - servicos-cos-net
+
+  front-svc:
+    build:
+      context: ./front-end
+    container_name: front-svc
+    networks:
+      - servicos-cos-net
+
+  nginx-gateway:
+    image: nginx:alpine
+    container_name: nginx-gateway
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - servicos-cos-net
+
+networks:
+  servicos-cos-net:
+    driver: bridge

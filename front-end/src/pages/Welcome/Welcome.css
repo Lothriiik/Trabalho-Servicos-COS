@@ -1,0 +1,36 @@
+/* Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+.welcome-screen {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.welcome-screen h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #14171a;
+}
+
+.welcome-screen p {
+  font-size: 16px;
+  color: #657786;
+  margin-bottom: 30px;
+}
+
+.create-group-btn-welcome {
+  background-color: #1a91da;
+  width: 50%;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-group-btn-welcome:hover {
+  background-color: #1677c2;
+}

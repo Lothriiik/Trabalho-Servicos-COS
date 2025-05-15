@@ -1,0 +1,392 @@
+openapi: 3.0.0
+info:
+  title: 'API de Autenticação de Usuários'
+  description: 'API para gerenciamento de usuários e autenticação'
+  version: 1.0.0
+servers:
+  -
+    url: 'http://localhost:1410'
+    description: 'Servidor local'
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    Error:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        error:
+          type: string
+        errorCode:
+          type: string
+paths:
+  /usuario:
+    post:
+      tags:
+        - Usuário
+      summary: 'Cria um novo usuário'
+      description: 'Endpoint para cadastrar um novo usuário no sistema'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - usuario_nome
+                - usuario_username
+                - usuario_senha
+              properties:
+                usuario_nome:
+                  type: string
+                  description: 'Nome completo do usuário'
+                  minLength: 3
+                  maxLength: 255
+                  example: 'João da Silva'
+                usuario_username:
+                  type: string
+                  description: 'Nome de usuário para login'
+                  minLength: 3
+                  maxLength: 50
+                  pattern: '^[a-zA-Z0-9]+$'
+                  example: joaosilva
+                usuario_senha:
+                  type: string
+                  format: password
+                  description: 'Senha do usuário'
+                  minLength: 6
+                  example: senha123
+              example:
+                usuario_nome: 'João da Silva'
+                usuario_username: joaosilva
+                usuario_senha: senha123
+      responses:
+        201:
+          description: 'Usuário criado com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario_uuid:
+                    type: string
+                    format: uuid
+                    description: 'Identificador único do usuário'
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome:
+                    type: string
+                    description: 'Nome completo do usuário'
+                    example: 'João da Silva'
+                  usuario_username:
+                    type: string
+                    description: 'Nome de usuário para login'
+                    example: joaosilva
+                example:
+                  usuario_uuid: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome: 'João da Silva'
+                  usuario_username: joaosilva
+        400:
+          description: 'Dados inválidos'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    get:
+      tags:
+        - Usuário
+      summary: 'Obtém dados do usuário autenticado'
+      description: 'Endpoint para obter os dados do usuário autenticado via token JWT'
+      security:
+        -
+          BearerAuth: {  }
+      responses:
+        200:
+          description: 'Dados do usuário obtidos com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  usuario_uuid:
+                    type: string
+                    format: uuid
+                    description: 'Identificador único do usuário'
+                    example: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome:
+                    type: string
+                    description: 'Nome completo do usuário'
+                    example: 'Maria de Souza'
+                  usuario_username:
+                    type: string
+                    description: 'Nome de usuário para login'
+                    example: mariadesouza
+                example:
+                  usuario_uuid: 123e4567-e89b-12d3-a456-426614174000
+                  usuario_nome: 'Maria de Souza'
+                  usuario_username: mariadesouza
+        401:
+          description: 'Token inválido ou expirado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    example: 401
+                  error:
+                    type: string
+                    example: 'Token inválido ou expirado'
+                  ErrorCode:
+                    type: string
+                    example: '02'
+                example:
+                  statusCode: 401
+                  error: 'Token inválido ou expirado'
+                  ErrorCode: '02'
+        404:
+          description: 'Usuário não encontrado'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      tags:
+        - Usuário
+      summary: 'Remove o próprio usuário autenticado'
+      description: 'Exclui permanentemente o usuário logado. Requer token JWT válido.'
+      security:
+        -
+          BearerAuth: {  }
+      responses:
+        200:
+          description: 'Usuário removido com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: 'Usuário removido com sucesso'
+        401:
+          description: 'Token inválido ou expirado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  ErrorCode:
+                    type: string
+                example:
+                  statusCode: 401
+                  error: 'Token inválido ou expirado'
+                  ErrorCode: '02'
+        404:
+          description: 'Usuário não encontrado'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  ErrorCode:
+                    type: string
+                example:
+                  statusCode: 404
+                  error: 'Usuário não encontrado'
+                  ErrorCode: '03'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /logar:
+    post:
+      tags:
+        - Usuário
+      summary: 'Autentica um usuário'
+      description: 'Endpoint para realizar o login de um usuário e obter um token JWT'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - usuario_username
+                - usuario_senha
+              properties:
+                usuario_username:
+                  type: string
+                  description: 'Nome de usuário para login'
+                  minLength: 3
+                  maxLength: 50
+                  pattern: '^[a-zA-Z0-9]+$'
+                  example: joaosilva
+                usuario_senha:
+                  type: string
+                  format: password
+                  description: 'Senha do usuário'
+                  minLength: 6
+                  example: senha123
+              example:
+                usuario_username: joaosilva
+                usuario_senha: senha123
+      responses:
+        200:
+          description: 'Login realizado com sucesso'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  access_token:
+                    type: string
+                    description: 'Token JWT para autenticação'
+                    example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3V1aWQiOiIxMjM0NTY3ODkwIiwidXNlcl91c2VybmFtZSI6Im1hcmlhZGVzb3V6YSIsImV4cCI6MTYxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+                example:
+                  access_token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX3V1aWQiOiIxMjM0NTY3ODkwIiwidXNlcl91c2VybmFtZSI6Im1hcmlhZGVzb3V6YSIsImV4cCI6MTYxNjIzOTAyMn0.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+        401:
+          description: 'Credenciais inválidas'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                    example: 401
+                  error:
+                    type: string
+                    example: 'Credenciais inválidas'
+                  ErrorCode:
+                    type: string
+                    example: '01'
+                example:
+                  statusCode: 401
+                  error: 'Credenciais inválidas'
+                  ErrorCode: '01'
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /usuarios:
+    post:
+      tags:
+        - Usuário
+      summary: 'Lista usuários existentes'
+      description: 'Lista os usuários cujos UUIDs são informados no body da requisição.'
+      security:
+        -
+          BearerAuth: {  }
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_ids:
+                  type: array
+                  items:
+                    type: string
+                    format: uuid
+                  description: 'Lista de UUIDs de usuários a serem retornados'
+              required:
+                - usuario_ids
+              example:
+                usuario_ids:
+                  - 3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b
+                  - 2f8f1e0a-41e7-4de8-9ad40-9204892bfa
+      responses:
+        200:
+          description: 'Lista de usuários retornada com sucesso'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    usuario_uuid:
+                      type: string
+                      format: uuid
+                    usuario_nome:
+                      type: string
+                    usuario_username:
+                      type: string
+              example:
+                -
+                  usuario_uuid: 3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b
+                  usuario_nome: 'Maria de Souza'
+                  usuario_username: mariadesouza
+                -
+                  usuario_uuid: 2f8f1e0a-41e7-4de8-9ad40-9204892bfa
+                  usuario_nome: 'João Silva'
+                  usuario_username: joaosilva
+        400:
+          description: 'Requisição inválida'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  errorCode:
+                    type: string
+        401:
+          description: 'Token JWT inválido ou ausente'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  errorCode:
+                    type: string
+        500:
+          description: 'Erro interno do servidor'
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  statusCode:
+                    type: integer
+                  error:
+                    type: string
+                  errorCode:
+                    type: string

@@ -1,0 +1,108 @@
+/* Home.css */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: #f7f9fa;
+  color: #14171a;
+}
+
+.home-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 20px;
+  height: 70px;
+  background-color: #1a91da;;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+
+}
+
+.logo {
+  margin-top: 10px;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1a91da;
+  margin-left: 10px;
+}
+
+.logoicon{
+  width: 30px;
+}
+
+.search-bar {
+  flex: 0 1 350px;
+}
+
+.search-bar input {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 30px;
+  border: 1px solid #e1e8ed;
+  outline: none;
+  background-color: #f5f8fa;
+  font-size: 14px;
+}
+
+.search-bar input:focus {
+  border-color: #1a91da;
+  background-color: white;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-direction: column;
+}
+
+.username {
+  font-weight: 500;
+  color: white;
+}
+
+.main-content {
+  display: flex;
+  flex: 1;
+}
+
+.feed-container {
+  margin-left: 270px;
+  flex: 1;
+  padding: 20px;
+  border-left: 1px solid #e1e8ed;
+  border-right: 1px solid #e1e8ed;
+
+}
+
+.welcome-screen {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.welcome-screen h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #14171a;
+}
+
+.welcome-screen p {
+  font-size: 16px;
+  color: #657786;
+  margin-bottom: 30px;
+}
+

@@ -1,0 +1,65 @@
+/usuario:
+  get:
+    tags:
+      - Usuário
+    summary: Obtém dados do usuário autenticado
+    description: Endpoint para obter os dados do usuário autenticado via token JWT
+    security:
+      - BearerAuth: []
+    responses:
+      '200':
+        description: Dados do usuário obtidos com sucesso
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                usuario_uuid:
+                  type: string
+                  format: uuid
+                  description: Identificador único do usuário
+                  example: "123e4567-e89b-12d3-a456-426614174000"
+                usuario_nome:
+                  type: string
+                  description: Nome completo do usuário
+                  example: "Maria de Souza"
+                usuario_username:
+                  type: string
+                  description: Nome de usuário para login
+                  example: "mariadesouza"
+              example:
+                usuario_uuid: "123e4567-e89b-12d3-a456-426614174000"
+                usuario_nome: "Maria de Souza"
+                usuario_username: "mariadesouza"
+      '401':
+        description: Token inválido ou expirado
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                  example: 401
+                error:
+                  type: string
+                  example: "Token inválido ou expirado"
+                ErrorCode:
+                  type: string
+                  example: "02"
+              example:
+                statusCode: 401
+                error: "Token inválido ou expirado"
+                ErrorCode: "02"
+      '404':
+        description: Usuário não encontrado
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error'
+      '500':
+        description: Erro interno do servidor
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Error' 

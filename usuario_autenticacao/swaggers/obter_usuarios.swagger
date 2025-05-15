@@ -1,0 +1,90 @@
+/usuarios/listar:
+  post:
+    tags:
+      - Usuário
+    summary: Lista usuários existentes
+    description: Lista os usuários cujos UUIDs são informados no body da requisição.
+    security:
+      - BearerAuth: []
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              usuario_ids:
+                type: array
+                items:
+                  type: string
+                  format: uuid
+                description: Lista de UUIDs de usuários a serem retornados
+            required:
+              - usuario_ids
+            example:
+              usuario_ids:
+                - "3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b"
+                - "2f8f1e0a-41e7-4de8-9ad40-9204892bfa"
+    responses:
+      '200':
+        description: Lista de usuários retornada com sucesso
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  usuario_uuid:
+                    type: string
+                    format: uuid
+                  usuario_nome:
+                    type: string
+                  usuario_username:
+                    type: string
+            example:
+              - usuario_uuid: "3f8f1e0a-51e7-4de8-9ad0-920a4b892b1b"
+                usuario_nome: "Maria de Souza"
+                usuario_username: "mariadesouza"
+              - usuario_uuid: "2f8f1e0a-41e7-4de8-9ad40-9204892bfa"
+                usuario_nome: "João Silva"
+                usuario_username: "joaosilva"
+      '400':
+        description: Requisição inválida
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string
+      '401':
+        description: Token JWT inválido ou ausente
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string
+      '500':
+        description: Erro interno do servidor
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                statusCode:
+                  type: integer
+                error:
+                  type: string
+                errorCode:
+                  type: string
