@@ -1,0 +1,159 @@
+/* Estilos Globais */
+
+/* Importação de fontes */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+/* Reset e base */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  background-color: #f0f2f5;
+  color: #333;
+  line-height: 1.6;
+}
+
+
+a {
+  color: #1DA1F2;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: #0c85d0;
+}
+
+.full-width {
+  width: 100%;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.main-content {
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ant-card {
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  margin-bottom: 16px;
+  width: 1000px;
+}
+
+.feed-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding: 16px 0;
+}
+
+.feed-item:last-child {
+  border-bottom: none;
+}
+
+.interaction-buttons {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.interaction-button {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #777;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.interaction-button:hover {
+  color: #1DA1F2;
+}
+
+.login-form {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.post-content {
+  margin-bottom: 12px;
+}
+
+.sidebar-fixed {
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.notification-unread {
+  background-color: #f0f7ff;
+}
+
+.comment-item {
+  padding: 12px;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.comment-input {
+  border-radius: 20px;
+  margin-top: 16px;
+}
+
+
+.reaction-emoji {
+  font-size: 1.2rem;
+  cursor: pointer;
+  margin-right: 8px;
+}
+
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.3s ease-in;
+}
+
+@media (max-width: 768px) {
+  .ant-layout-sider {
+    display: none;
+  }
+  
+  .main-content {
+    padding: 12px;
+  }
+  
+  .right-panel {
+    display: none;
+  }
+}
+
+.btn-del {
+  
+  color: #FF7878;
+  border-color: #FF7878;
+}
+
+
+
+:where(.css-dev-only-do-not-override-1pnaig0).ant-btn-variant-outlined:not(:disabled):not(.ant-btn-disabled):hover,
+:where(.css-dev-only-do-not-override-1pnaig0).ant-btn-variant-dashed:not(:disabled):not(.ant-btn-disabled):hover {
+  color:#6d1919;
+  border-color:#6d1919;
+}

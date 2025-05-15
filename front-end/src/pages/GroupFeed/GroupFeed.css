@@ -1,0 +1,171 @@
+/* GroupFeed.css */
+.group-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #e1e8ed;
+  }
+  
+  .group-header-info h1 {
+    font-size: 22px;
+    margin-bottom: 5px;
+  }
+  
+  .group-members-feed {
+    font-size: 14px;
+    color: rgb(189, 189, 189);
+    margin-bottom: 10px;
+    display: block;
+  }
+  
+  .group-description {
+    font-size: 15px;
+    color: #14171a;
+    max-width: 500px;
+  }
+  
+  .group-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .join-group {
+    background-color: #1a91da;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .group-menu {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #657786;
+    cursor: pointer;
+    height: 34px;
+    width: 34px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .group-menu:hover {
+    background-color: rgba(26, 145, 218, 0.1);
+    color: #1a91da;
+  }
+  
+  .post-composer {
+    display: flex;
+    background-color: white;
+    border-radius: 12px;
+    border: 1px solid #e1e8ed;
+    padding: 15px;
+  }
+  
+  .composer-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #1a91da;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    margin-right: 12px;
+    flex-shrink: 0;
+  }
+  
+  .post-composer form {
+    flex: 1;
+  }
+  
+  .post-composer textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px 0;
+    border: none;
+    resize: vertical;
+    font-size: 16px;
+    font-family: inherit;
+    margin-bottom: 10px;
+    outline: none;
+  }
+  
+  .composer-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #e1e8ed;
+  }
+  
+  .composer-tools {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .tool-button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #1a91da;
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 50%;
+    width: 34px;
+    height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .tool-button:hover {
+    background-color: rgba(26, 145, 218, 0.1);
+  }
+  
+  .post-button {
+    background-color: #1a91da;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  .post-button:disabled {
+    background-color: #8ec7eb;
+    cursor: not-allowed;
+  }
+  
+  .posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .group-menu {
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover {
+  background-color: #f0f0f0;
+}
