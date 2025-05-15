@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import './GroupFeed.css';
 import Post from '../../components/Post';
 import { useParams } from 'react-router-dom';
-import {obterGrupo} from '../../api/apiMain';
-import { Menu, Dropdown, Button } from 'antd';
+import {obterGrupo, listarGruposInscrito, sairGrupo} from '../../api/apiMain';
+import { Menu, Dropdown, Button, Modal } from 'antd';
 import { useNavigate } from 'react-router-dom';
 
 
@@ -12,6 +12,40 @@ function GroupFeed() {
   const { groupId } = useParams();
   const [group, setGroup] = useState([]);
   const navigate = useNavigate();
+  const [gruposInscrito, setGruposInscrito] = useState([]);
+  const [isMember, setIsMember] = useState(false);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
+
+
+  useEffect(() => {
+  const fetchInscrito = async () => {
+    try {
+      const res = await listarGruposInscrito();
+      const grupos = res.data; 
+      setGruposInscrito(grupos);
+
+      const membro = grupos.some(g => g.grupo_uuid === groupId);
+      setIsMember(membro);
+    } catch (error) {
+      console.error('Erro ao listar grupos inscritos:', error);
+    }
+  };
+
+  if (groupId) {
+    fetchInscrito();
+  }
+}, [groupId]);
+
+  const handleSairGrupo = async () => {
+    try {
+      await sairGrupo(groupId);
+      navigate('/home');
+    } catch (error) {
+      console.error('Erro ao sair do grupo:', error);
+      alert('Erro ao sair do grupo');
+    }
+};
+
 
   useEffect(() => {
     console.log("Grupo selecionado:", groupId);
@@ -96,7 +130,15 @@ function GroupFeed() {
       <Menu.Item key="members" onClick={() => navigate(`/home/group/${groupId}/members`)}>
         Membros
       </Menu.Item>
+      {isMember && (
+      <Menu.Item key="leave" onClick={() => setShowLeaveModal(true)} danger>
+        Sair do grupo
+      </Menu.Item>
+      
+    )}
+
     </Menu>
+    
   );
 
   return (
@@ -108,7 +150,22 @@ function GroupFeed() {
           <p className="group-description">{currentGroup.description}</p>
         </div>
         <div className="group-actions">
-          <button className="join-group">Participar</button>
+          <Modal
+            open={showLeaveModal}
+            onOk={() => {
+              handleSairGrupo();
+              setShowLeaveModal(false);
+            }}
+            onCancel={() => setShowLeaveModal(false)}
+            title="Deseja realmente sair do grupo?"
+            okText="Sim, sair"
+            cancelText="Cancelar"
+            okButtonProps={{ danger: true }}
+            centered
+          >
+            <p>Você perderá o acesso às postagens e interações deste grupo.</p>
+          </Modal>
+          
           <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
               <Button className="group-menu">•••</Button>
           </Dropdown>

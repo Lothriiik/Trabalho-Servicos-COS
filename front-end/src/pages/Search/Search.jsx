@@ -124,7 +124,7 @@ const Search = () => {
               renderItem={item => (
                 <List.Item>
                   <Card
-                    style={{ width: '350px' }}
+                    style={{ width: '300px' }}
                     actions={[
                       <Button
                         type="primary"

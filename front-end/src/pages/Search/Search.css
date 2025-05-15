@@ -6,7 +6,8 @@
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
-    width: 300px;
+    width: 290px;
+
     min-width: 0;
     display: block; 
 }
@@ -16,6 +17,9 @@
     justify-content: center;
     overflow: hidden;
     text-overflow: ellipsis;
-    width: 300px;
+    width: 250px;
+    min-width: 0;
+    display: block; 
+    height: 50px;
 
 }

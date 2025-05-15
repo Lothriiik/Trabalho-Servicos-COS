@@ -22,7 +22,7 @@ import {
 } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import Post from '../../components/Post';
-import { obterUsuario, listarMeusGrupos, listarGruposInscrito, deletarGrupo, deletarUsuario } from '../../api/apiMain';
+import { obterUsuario, listarMeusGrupos, listarGruposInscrito, deletarGrupo, deletarUsuario, sairGrupo } from '../../api/apiMain';
 import DeleteModal  from '../../components/DeleteModal';
 
 const { Title, Text, Paragraph } = Typography;
@@ -39,7 +39,18 @@ const UserProfile = ({ userId }) => {
   const [deleteModalVisible, setDeleteModalVisible] = useState(false);
   const [deleteUserVisible, setDeleteUserVisible] = useState(false);
   const [selectedGroup, setSelectedGroup] = useState([]);
+  const [showLeaveModal, setShowLeaveModal] = useState(false);
   const navigate = useNavigate();
+
+  const handleSairGrupo = async (id) => {
+      try {
+        await sairGrupo(id);
+        navigate('/home');
+      } catch (error) {
+        console.error('Erro ao sair do grupo:', error);
+        alert('Erro ao sair do grupo');
+      }
+  };
 
   const handleDeleteClick = (id) => {
     setSelectedGroup(id);
@@ -212,11 +223,14 @@ const handleUserDeleteConfirm = async () => {
                   >
                     Apagar
                   </Button>
+                  
                 ) : (
                   <>
 
                   </>
                 )}
+
+                
               </Space>
             </Space>
             
@@ -307,16 +321,37 @@ const handleUserDeleteConfirm = async () => {
                     group.owner ? (
                       <Button danger onClick={() => handleDeleteClick(group.id)}>Excluir</Button>
                     ) : (
-                      <Button>Sair</Button>
+                      <Button danger  onClick={() => setShowLeaveModal(true)} >Sair</Button>
+                      
                     )
+                    
                   ]}
+                  
                 >
                   <List.Item.Meta
                     avatar={group.owner && <CrownOutlined />}
                     title={<Space>{group.name}</Space>}
                     description={group.description}
                   />
+
+                  <Modal
+                              open={showLeaveModal}
+                              onOk={() => {
+                                handleSairGrupo(group.id);
+                                setShowLeaveModal(false);
+                              }}
+                              onCancel={() => setShowLeaveModal(false)}
+                              title="Deseja realmente sair do grupo?"
+                              okText="Sim, sair"
+                              cancelText="Cancelar"
+                              okButtonProps={{ danger: true }}
+                              centered
+                            >
+                              <p>Você perderá o acesso às postagens e interações deste grupo.</p>
+                      </Modal>
                 </List.Item>
+
+                
               )}
             />
 

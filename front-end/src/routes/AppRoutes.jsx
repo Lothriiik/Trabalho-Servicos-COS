@@ -15,11 +15,11 @@ const AppRoutes = () => {
 
         <Route
           path="/login"
-          element={isLogged ? <Navigate to="/home" replace /> : <Login />}
+          element={<Login />}
         />
         <Route
           path="/registrar"
-          element={isLogged ? <Navigate to="/home" replace /> : <Register />}
+          element={<Register />}
         />
 
 

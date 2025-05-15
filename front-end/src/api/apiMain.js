@@ -16,7 +16,11 @@ export const entrarGrupo = (uuid) =>
   API.post(`/grupo/grupos/entrar/${uuid}`, {
     grupo_uuid_fk: uuid,
   });
-export const sairGrupo = (uuid) => API.delete(`/grupo/grupos/sair/${uuid}`);
+export const sairGrupo = (uuid) => API.delete(`/grupo/grupos/sair/${uuid}`, {
+  data: {
+    grupo_uuid_fk: uuid,
+  }
+});
 export const listarGruposDisponiveis = () => API.get('/grupo/grupos/listar/disponiveis');
 export const listarMeusGrupos = () => API.get('/grupo/grupos/listar/meu');
 export const listarGruposInscrito = () => API.get('/grupo/grupos/listar/inscrito');
